@@ -304,5 +304,6 @@ CheckoutPage.css
 
 # Demo
 
-The Checkout button is implemented for demonstration purposes only and displays a confirmation alert after the bundle has been configured.
+The Checkout button is implemented for demonstration purposes only and displays a confirmation alert after the bundle has been configured, and save later is working as predicted it saves to the local storage.
+
 # Ecom
