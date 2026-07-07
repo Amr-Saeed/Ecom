@@ -13,9 +13,12 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/products")
-      .then((res) => res.json())
-      .then((data) => {
+    const loadProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/products");
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const data = await res.json();
+
         console.log("Fetched products:", data);
         setProducts(data);
 
@@ -56,11 +59,15 @@ const CheckoutPage = () => {
         }
         console.log("Initial state:", init);
         setState(init);
+      } catch (err) {
+        console.error("Failed to load products:", err);
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => console.error("Failed to load products:", err));
-  }, []);
+      }
+    };
 
+    loadProducts();
+  }, []);
   useEffect(() => {
     if (Object.keys(state).length > 0) {
       const toSave = { ...state, _version: SAVE_VERSION };
